@@ -20,12 +20,73 @@ public class Main {
 		int opcao = -1; 
 
 		while (opcao != 0) {
-
+			System.out.println(menu);
 			opcao = inputNumInteiro("Sua escolha: ");
+		
+			switch (opcao) {
+				case 1:
+					adicionarVeiculo();
+					break;
+				case 2:
+					// listarTodos();
+					break;
+				case 3: 
+					// pesquisarNome();
+					break;
+				case 4:
+					// removerVeiculo();
+					break;
+				default:
+					break;
+				}
 		}
+
 
 		input.close(); 				
 	}	
+
+	public static void adicionarVeiculo() {
+		Veiculo veiculo = null;
+		
+		while (veiculo == null) {
+
+			System.out.println("""
+				Qual é o Veículo?
+				1- Moto
+				2- Carro
+				3- Caminhão	
+				""");
+			int tipoVeiculo = inputNumInteiro("Sua escolha: ");
+
+			switch (tipoVeiculo) {
+				case 1: // Moto
+					veiculo = new Moto();
+					break;
+				case 2: // Carro
+					veiculo = new Carro();
+				case 3: // Caminhão
+					veiculo = new Caminhao();
+				default:
+					break;
+			}
+		}
+
+		System.out.print("Marca: ");
+		veiculo.setMarca(input.nextLine());
+
+		System.out.print("Modelo: ");
+		veiculo.setModelo(input.nextLine());
+
+		System.out.print("Placa: ");
+		veiculo.setPlaca(input.nextLine());
+
+		veiculo.setAno(inputNumInteiro("Ano: "));
+
+		frota.adicionarLivro(veiculo);
+
+	}
+
+
 
 	private static int inputNumInteiro(String mensagem) {
 		int valorNumerico = 0;
@@ -48,9 +109,12 @@ public class Main {
         	System.out.println("\033[H\033[2J");
     	}
 
-    	private static void travarAcao() {
-        	System.out.print("Clique qualquer tecla para prosseguir: ");
-        	input.nextLine();
-    	}
+	private static void travarAcao() {
+		System.out.print("Clique qualquer tecla para prosseguir: ");
+		input.nextLine();
+	}
+
+	
+
 
 }
