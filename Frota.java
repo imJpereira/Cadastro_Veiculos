@@ -4,12 +4,11 @@ import java.util.List;
 public class Frota {
     private List<Veiculo> listaDeVeiculos = new ArrayList<>();
 
-    public void adicionarLivro(Veiculo novoVeiculo) throws Exception {
-        
+    public void adicionarVeiculo(Veiculo novoVeiculo) {
         listaDeVeiculos.add(novoVeiculo);
     }
 
-    public List<Veiculo> pesquisarPorTitulo(String placa) {
+    public List<Veiculo> pesquisarPorPlaca(String placa) {
         List<Veiculo> veiculosEncontrados = new ArrayList<>();
         for (Veiculo veiculo : listaDeVeiculos) {
             if (veiculo.getModelo().toLowerCase().contains(placa.toLowerCase())) {
@@ -34,7 +33,4 @@ public class Frota {
         return this.listaDeVeiculos;
     }
 
-    public List<Veiculo> getListaDVeiculos() {
-        return listaDeVeiculos;
-    }
 }
