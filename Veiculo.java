@@ -45,7 +45,6 @@ public abstract class Veiculo {
                 Ano: %d
                 """, this.marca, this.modelo, this.placa, this.ano);
     }
-
     
     
 }
