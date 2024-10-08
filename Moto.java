@@ -8,4 +8,9 @@ public class Moto extends Veiculo{
     public void setCilindradas(int cilindradas) {
         this.cilindradas = cilindradas;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

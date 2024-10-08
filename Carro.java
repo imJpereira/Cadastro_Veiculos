@@ -8,4 +8,9 @@ public class Carro extends Veiculo {
     public void setNumeroPortas(int numeroPortas) {
         this.numeroPortas = numeroPortas;
     }
+    
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
