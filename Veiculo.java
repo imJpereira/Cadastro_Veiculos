@@ -35,5 +35,17 @@ public abstract class Veiculo {
     public void setAno(int ano) {
         this.ano = ano;
     }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                Marca: %s
+                Modelo: %s
+                Placa: %s
+                Ano: %d
+                """, this.marca, this.modelo, this.placa, this.ano);
+    }
+
+    
     
 }

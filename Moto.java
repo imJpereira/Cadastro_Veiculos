@@ -11,7 +11,7 @@ public class Moto extends Veiculo{
 
     @Override
     public String toString() {
-        String descrição = super.toString();
-        return descrição + " - Cilindradas: " + this.getCilindradas();
+        String descricao = super.toString();
+        return descricao + " - Cilindradas: " + this.getCilindradas()+"\n";
     }
 }

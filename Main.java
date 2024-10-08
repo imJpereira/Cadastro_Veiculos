@@ -31,7 +31,7 @@ public class Main {
 					adicionarVeiculo();
 					break;
 				case 2:
-					pesquisarTodos();
+					pesquisarTodos(true);
 					break;
 				case 3: 
 					pesquisarMarca();
@@ -105,12 +105,12 @@ public class Main {
 		for (Veiculo veiculo : listaVeiculos) {
 			System.out.println(veiculo);
 		}
-		travarAcao();
 	}
 
-	public static void pesquisarTodos() {
+	public static void pesquisarTodos(Boolean travarAcao) {
 		var listaVeiculos = frota.pesquisarTodos();
 		listarVeiculos(listaVeiculos);
+		if (travarAcao) { travarAcao(); }
 	}
 
 	public static void pesquisarMarca() {
@@ -126,21 +126,33 @@ public class Main {
         }
 
         listarVeiculos(veiculosEncontrados);
+		travarAcao();
 	}	
 
 	public static void removerVeiculo() {
-		limparTela();
-		System.out.print("Placa do Veículo: ");
-		String placa = input.nextLine();
+		int opcaoRemover = 0;
+		
+		while (opcaoRemover == 0) {
+			limparTela();
+			pesquisarTodos(false);
+			System.out.print("Placa do Veículo: ");
+			String placa = input.nextLine();
 
-		try {
-			frota.removerPorPlaca(placa);
-			System.out.println("Veículo removido com sucesso! ");
-		} catch (Exception e) {
-			System.out.println("Não foi possível remover livro \n" + e.getMessage());
+			try {
+				frota.removerPorPlaca(placa);
+				System.out.println("Veículo removido com sucesso! ");
+			} catch (Exception e) {
+				System.out.println("Não foi possível remover o veículo \n" + e.getMessage());
+			}
+
+			System.out.println("================");
+			System.out.println("""
+				[0] Remover outro veículo 
+				[1] Voltar para o menu
+					""");
+			opcaoRemoverOutro = inputNumInteiro("Sua escolha: ");
 		}
 
-		travarAcao();
 	}
 
 	private static int inputNumInteiro(String mensagem) {

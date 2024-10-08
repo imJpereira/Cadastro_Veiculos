@@ -11,7 +11,7 @@ public class Caminhao extends Veiculo {
 
     @Override
     public String toString() {
-        String descrição = super.toString();
-        return descrição + " - Capacidade: " + this.getCapacidade();
+        String descricao = super.toString();
+        return descricao + " - Capacidade: " + this.getCapacidade()+"\n";
     }
 }

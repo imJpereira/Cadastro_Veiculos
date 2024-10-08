@@ -11,7 +11,7 @@ public class Carro extends Veiculo {
     
     @Override
     public String toString() {
-        String descrição = super.toString();
-        return descrição + " - numero de portas: " + this.getNumeroPortas();
+        String descricao = super.toString();
+        return descricao + " - numero de portas: " + this.getNumeroPortas()+"\n";
     }
 }

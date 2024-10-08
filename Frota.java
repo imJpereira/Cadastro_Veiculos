@@ -4,7 +4,7 @@ import java.util.List;
 public class Frota {
     private List<Veiculo> listaDeVeiculos = new ArrayList<>();
 
-    public void adicionarLivro(Veiculo novoVeiculo) throws Exception {
+    public void adicionarVeiculo(Veiculo novoVeiculo) {
         
         listaDeVeiculos.add(novoVeiculo);
     }
@@ -37,4 +37,5 @@ public class Frota {
     public List<Veiculo> getListaDVeiculos() {
         return listaDeVeiculos;
     }
+
 }
