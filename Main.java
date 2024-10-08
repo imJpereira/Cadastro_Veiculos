@@ -96,7 +96,7 @@ public class Main {
 			((Caminhao) veiculo).setCapacidade(inputNumInteiro("Capacidade: "));
 		}
 
-		frota.adicionarVeiculo(veiculo);
+		//frota.adicionarVeiculo(veiculo);
 	}
 
 	public static void listarVeiculos(List<Veiculo> listaVeiculos) {
@@ -119,11 +119,11 @@ public class Main {
         String marca = input.nextLine();
         List<Veiculo> veiculosEncontrados = new ArrayList<>();
 
-        try {
-             veiculosEncontrados = frota.pesquisarPorTitulo(marca);
-        } catch (Exception e) {
-            System.out.println("Erro ao procurar esse veículo: " + e.getMessage());
-        }
+        // try {
+        //      veiculosEncontrados = frota.pesquisarPorTitulo(marca);
+        // } catch (Exception e) {
+        //     System.out.println("Erro ao procurar esse veículo: " + e.getMessage());
+        // }
 
         listarVeiculos(veiculosEncontrados);
 	}	
