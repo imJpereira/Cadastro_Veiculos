@@ -157,7 +157,8 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println("Não foi possível remover livro \n" + e.getMessage());
 		}
-
+,
+		travarAcao();
 	}
 
 	private static int inputNumInteiro(String mensagem) {
