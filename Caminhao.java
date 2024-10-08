@@ -8,4 +8,10 @@ public class Caminhao extends Veiculo {
     public void setCapacidade(int capacidade) {
         this.capacidade = capacidade;
     }
+
+    @Override
+    public String toString() {
+        String descrição = super.toString();
+        return descrição + "Capacidade: " + this.getCapacidade();
+    }
 }
