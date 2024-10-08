@@ -16,7 +16,6 @@ public class Main {
         3- Pesquisar veículo;
         4- Remover veículo;
         0- Sair;
-
 		""";
 
 		int opcao = -1; 
@@ -31,10 +30,10 @@ public class Main {
 					adicionarVeiculo();
 					break;
 				case 2:
-					pesquisarTodos();
+					pesquisarTodos(true);
 					break;
 				case 3: 
-					pesquisarMarca();
+					pesquisarPlaca();
 					break;
 				case 4:
 					removerVeiculo();
@@ -43,7 +42,6 @@ public class Main {
 					break;
 				}
 		}
-
 
 		input.close(); 				
 	}	
@@ -96,43 +94,63 @@ public class Main {
 			((Caminhao) veiculo).setCapacidade(inputNumInteiro("Capacidade: "));
 		}
 
-		//frota.adicionarVeiculo(veiculo);
+		limparTela();
+		try {
+			frota.adicionarVeiculo(veiculo);	
+			System.out.println("Veículo adicionado com sucesso!");
+		} catch (Exception e) {
+			System.out.println("Não foi possível adicionar veículo" + e.getMessage());
+		}
+		
+		travarAcao();
 	}
 
 	public static void listarVeiculos(List<Veiculo> listaVeiculos) {
 		limparTela();
 		listaVeiculos.sort(Comparator.comparing(Veiculo::getMarca));
 		for (Veiculo veiculo : listaVeiculos) {
+			if (veiculo instanceof  Moto) {
+				System.out.println("MOTO");
+			} else if (veiculo instanceof Carro) {
+				System.out.println("CARRO");
+			} else if (veiculo instanceof Caminhao) {
+				System.out.println("CAMINHÃO");
+			} 
 			System.out.println(veiculo);
+			System.out.println("---------------------");
 		}
-		travarAcao();
+		
 	}
 
-	public static void pesquisarTodos() {
+	public static void pesquisarTodos(Boolean travarAcao) {
 		var listaVeiculos = frota.pesquisarTodos();
 		listarVeiculos(listaVeiculos);
+		if (travarAcao) { travarAcao(); }
 	}
 
-	public static void pesquisarMarca() {
+	public static void pesquisarPlaca() {
 		limparTela();
-        System.out.print("Marca do Veículo: ");
-        String marca = input.nextLine();
+        System.out.print("Placa do Veículo: ");
+        String placa = input.nextLine();
         List<Veiculo> veiculosEncontrados = new ArrayList<>();
 
-        // try {
-        //      veiculosEncontrados = frota.pesquisarPorTitulo(marca);
-        // } catch (Exception e) {
-        //     System.out.println("Erro ao procurar esse veículo: " + e.getMessage());
-        // }
+        try {
+             veiculosEncontrados = frota.pesquisarPorPlaca(placa);
+        } catch (Exception e) {
+            System.out.println("Erro ao procurar esse veículo: " + e.getMessage());
+        }
 
         listarVeiculos(veiculosEncontrados);
+		travarAcao();
 	}	
 
 	public static void removerVeiculo() {
 		limparTela();
+		pesquisarTodos(false);
 		System.out.print("Placa do Veículo: ");
 		String placa = input.nextLine();
 
+		limparTela();
 		try {
 			frota.removerPorPlaca(placa);
 			System.out.println("Veículo removido com sucesso! ");
@@ -140,7 +158,6 @@ public class Main {
 			System.out.println("Não foi possível remover livro \n" + e.getMessage());
 		}
 
-		travarAcao();
 	}
 
 	private static int inputNumInteiro(String mensagem) {
