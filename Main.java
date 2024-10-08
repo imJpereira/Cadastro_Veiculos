@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -6,7 +9,6 @@ public class Main {
 
 	public static void main(String[] args) {
 		String menu = """
-
 		======= CADASTRO DE VEÍCULO =======
 		Escolha uma das opções:
         1- Adicionar novo veículo;
@@ -20,6 +22,7 @@ public class Main {
 		int opcao = -1; 
 
 		while (opcao != 0) {
+			limparTela();
 			System.out.println(menu);
 			opcao = inputNumInteiro("Sua escolha: ");
 		
@@ -28,13 +31,13 @@ public class Main {
 					adicionarVeiculo();
 					break;
 				case 2:
-					// listarTodos();
+					pesquisarTodos();
 					break;
 				case 3: 
-					// pesquisarNome();
+					pesquisarMarca();
 					break;
 				case 4:
-					// removerVeiculo();
+					removerVeiculo();
 					break;
 				default:
 					break;
@@ -46,6 +49,7 @@ public class Main {
 	}	
 
 	public static void adicionarVeiculo() {
+		limparTela();
 		Veiculo veiculo = null;
 		
 		while (veiculo == null) {
@@ -64,8 +68,10 @@ public class Main {
 					break;
 				case 2: // Carro
 					veiculo = new Carro();
+					break;
 				case 3: // Caminhão
 					veiculo = new Caminhao();
+					break;
 				default:
 					break;
 			}
@@ -82,27 +88,76 @@ public class Main {
 
 		veiculo.setAno(inputNumInteiro("Ano: "));
 
-		frota.adicionarLivro(veiculo);
+		if (veiculo instanceof Moto) {
+			((Moto) veiculo).setCilindradas(inputNumInteiro("Cilindradas: "));
+		} else if (veiculo instanceof Carro) {
+			((Carro) veiculo).setNumeroPortas(inputNumInteiro("Número de Portas: "));
+		} else if (veiculo instanceof Caminhao) {
+			((Caminhao) veiculo).setCapacidade(inputNumInteiro("Capacidade: "));
+		}
 
+		frota.adicionarVeiculo(veiculo);
 	}
 
+	public static void listarVeiculos(List<Veiculo> listaVeiculos) {
+		limparTela();
+		listaVeiculos.sort(Comparator.comparing(Veiculo::getMarca));
+		for (Veiculo veiculo : listaVeiculos) {
+			System.out.println(veiculo);
+		}
+		travarAcao();
+	}
 
+	public static void pesquisarTodos() {
+		var listaVeiculos = frota.pesquisarTodos();
+		listarVeiculos(listaVeiculos);
+	}
+
+	public static void pesquisarMarca() {
+		limparTela();
+        System.out.print("Marca do Veículo: ");
+        String marca = input.nextLine();
+        List<Veiculo> veiculosEncontrados = new ArrayList<>();
+
+        try {
+             veiculosEncontrados = frota.pesquisarPorTitulo(marca);
+        } catch (Exception e) {
+            System.out.println("Erro ao procurar esse veículo: " + e.getMessage());
+        }
+
+        listarVeiculos(veiculosEncontrados);
+	}	
+
+	public static void removerVeiculo() {
+		limparTela();
+		System.out.print("Placa do Veículo: ");
+		String placa = input.nextLine();
+
+		try {
+			frota.removerPorPlaca(placa);
+			System.out.println("Veículo removido com sucesso! ");
+		} catch (Exception e) {
+			System.out.println("Não foi possível remover livro \n" + e.getMessage());
+		}
+
+		travarAcao();
+	}
 
 	private static int inputNumInteiro(String mensagem) {
 		int valorNumerico = 0;
-        	Boolean inputNumerico = false;
-        
-        	while(!inputNumerico) {
-            		System.out.print(mensagem);
-            		String inputStr = input.nextLine();
-            		try {
-                		valorNumerico = Integer.parseInt(inputStr);
-                		inputNumerico = true;
-            		} catch (Exception e) {
-                		System.out.println("Por favor, digite um número inteiro! "+ e.getMessage());
-            		}	
-        	}		
-        	return valorNumerico;
+		Boolean inputNumerico = false;
+	
+		while(!inputNumerico) {
+				System.out.print(mensagem);
+				String inputStr = input.nextLine();
+				try {
+					valorNumerico = Integer.parseInt(inputStr);
+					inputNumerico = true;
+				} catch (Exception e) {
+					System.out.println("Por favor, digite um número inteiro! "+ e.getMessage());
+				}	
+		}		
+		return valorNumerico;
 	}
 
 	private static void limparTela() {
@@ -113,8 +168,5 @@ public class Main {
 		System.out.print("Clique qualquer tecla para prosseguir: ");
 		input.nextLine();
 	}
-
-	
-
 
 }
